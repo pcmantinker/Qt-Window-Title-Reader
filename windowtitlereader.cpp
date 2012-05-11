@@ -29,6 +29,11 @@ void WindowTitleReader::getWindowTitle()
 #else
     qstrMessage = QString::fromLocal8Bit(buf);
 #endif
-#endif
     qDebug() << qstrMessage;
+#endif
+
+#ifdef Q_WS_MACX
+    Mac m;
+    m.getWindowTitle();
+#endif
 }

@@ -5,6 +5,10 @@
 #include "qt_windows.h"
 #endif
 
+#ifdef Q_WS_MACX
+#include "mac.h"
+#endif
+
 class WindowTitleReader : public QObject
 {
     Q_OBJECT

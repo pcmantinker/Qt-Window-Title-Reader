@@ -15,7 +15,8 @@ SOURCES += main.cpp\
     windowtitlereader.cpp
 
 HEADERS  += mainwindow.h \
-    windowtitlereader.h
+    windowtitlereader.h \
+    mac.h
 
 FORMS    += mainwindow.ui
 
