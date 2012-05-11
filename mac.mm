@@ -32,17 +32,3 @@ frontmost active window title.*/
         }
     }
 }
-
-//QString Mac::qt_mac_NSStringToQString(const NSString *nsstr)
-//{
-//NSRange range;
-//range.location = 0;
-//range.length = [nsstr length];
-//QString result(range.length, QChar(0));
-
-//unichar *chars = new unichar[range.length];
-//[nsstr getCharacters:chars range:range];
-//result = QString::fromUtf16(chars, range.length);
-//delete[] chars;
-//return result;
-//}
