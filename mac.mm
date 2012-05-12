@@ -3,20 +3,19 @@
 
 void Mac::getWindowTitle()
 {
-    // get front process for currently active application
+    // get frontmost process for currently active application
     ProcessSerialNumber psn = { 0L, 0L };
     OSStatus err = GetFrontProcess(&psn);
 
     CFStringRef processName = NULL;
     err = CopyProcessName(&psn, &processName);
-    CFIndex length = CFStringGetLength(processName);
+//    CFIndex length = CFStringGetLength(processName);
 
-    QString string(length, Qt::Uninitialized);
-    CFStringGetCharacters(processName, CFRangeMake(0, length), reinterpret_cast<UniChar *>
-                          (const_cast<QChar *>(string.unicode())));
-    qDebug() << string;
+//    QString string(length, Qt::Uninitialized);
+//    CFStringGetCharacters(processName, CFRangeMake(0, length), reinterpret_cast<UniChar *>
+//                          (const_cast<QChar *>(string.unicode())));
+//    qDebug() << string;
     NSString *pname = (NSString *)processName;
-
 
     // loop through all application windows
     int i = 0;

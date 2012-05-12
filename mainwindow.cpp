@@ -5,6 +5,7 @@ MainWindow::MainWindow()
 {
     qDebug() << "MainWindow::MainWindow()";
     wtr = new WindowTitleReader();
+    this->setWindowTitle("Selected Window Title Demo");
 }
 
 MainWindow::~MainWindow()
