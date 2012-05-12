@@ -3,6 +3,7 @@
 WindowTitleReader::WindowTitleReader()
 {
     qDebug() << "WindowTitleReader::WindowTitleReader()";
+    // refresh window reading every 10ms
     timer = new QTimer(this);
     timer->setInterval(10);
     timer->start();
@@ -13,12 +14,6 @@ WindowTitleReader::~WindowTitleReader()
 {
     delete timer;
 }
-
-void WindowTitleReader::init()
-{
-    qDebug() << "WindowTitleReader::init()";
-}
-
 void WindowTitleReader::getWindowTitle()
 {
     qDebug() << "WindowTitleReader::getWindowTitle()";

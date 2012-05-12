@@ -15,7 +15,6 @@ class WindowTitleReader : public QObject
 public:
     WindowTitleReader();
     ~WindowTitleReader();
-    void init();
     QString qstrMessage;
 
 private:

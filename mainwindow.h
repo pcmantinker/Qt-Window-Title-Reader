@@ -15,9 +15,6 @@ public:
 private:
     QString qstrMessage;
     WindowTitleReader* wtr;
-
-private slots:
-    void getWindowTitle();
 };
 
 #endif // MAINWINDOW_H
