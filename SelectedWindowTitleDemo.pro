@@ -27,4 +27,4 @@ macx:OBJECTIVE_SOURCES += mac.mm
 macx:LIBS += -framework Cocoa
 
 
-unix:LIBS += -libx11
+unix:LIBS += -lX11

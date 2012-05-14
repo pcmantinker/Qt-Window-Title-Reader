@@ -9,6 +9,10 @@
 #include "mac.h"
 #endif
 
+#ifdef Q_WS_X11
+#include "linux_x11.h"
+#endif
+
 class WindowTitleReader : public QObject
 {
     Q_OBJECT

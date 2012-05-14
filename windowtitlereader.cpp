@@ -31,4 +31,16 @@ void WindowTitleReader::getWindowTitle()
     Mac m;
     m.getWindowTitle();
 #endif
+
+#ifdef Q_WS_X11
+    linux_x11 l;
+    Display *display = XOpenDisplay (NULL);
+    int screen = DefaultScreen (display);
+
+//    //XSetErrorHandler(ErrorHandler);
+
+    Window rootWindow = RootWindow (display, screen);
+    l.enumerateWindows(display, rootWindow);
+    XCloseDisplay (display);
+#endif
 }
