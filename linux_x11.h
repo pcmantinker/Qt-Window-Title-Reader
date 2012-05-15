@@ -15,6 +15,8 @@ public:
     Window* active(Display *disp, unsigned long *len);
     char *name (Display *disp, Window win);
     char *command(Display *disp, Window win);
+    char *className(Display *disp, Window win);
+    int *pid(Display *disp, Window win);
     void getWindowTitle();
 };
 
