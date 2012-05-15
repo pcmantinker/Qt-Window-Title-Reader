@@ -35,20 +35,22 @@ void WindowTitleReader::getWindowTitle()
 #ifdef Q_WS_X11
     linux_x11 l;
     unsigned long len;
-    XKeyEvent esend;
     Display *disp = XOpenDisplay(NULL);
     Window *list;
     char *name;
     char* command;
 
-    list = (Window*)l.list(disp,&len);
+    list = (Window*)l.active(disp,&len);
     for (int i=0;i<(int)len;i++) {
         name = l.name(disp,list[i]);
         command = l.command(disp, list[i]);
-        qDebug() << i << " : " << name << " : " << command;
+        qDebug() << i << " : " << name;
+        if(command)
+            qDebug() << "Command : " << command;
         delete name;
         delete command;
     }
+    delete list;
     XCloseDisplay (disp);
 #endif
 }

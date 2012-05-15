@@ -9,10 +9,8 @@ Window * linux_x11::list (Display *disp, unsigned long *len) {
     int form;
     unsigned long remain;
     unsigned char *list;
-    int screen = DefaultScreen (disp);
-    Window rootWindow = RootWindow (disp, screen);
 
-    if (XGetWindowProperty(disp,rootWindow,prop,0,1024,False,XA_WINDOW,
+    if (XGetWindowProperty(disp,XDefaultRootWindow(disp),prop,0,1024,False,XA_WINDOW,
                 &type,&form,len,&remain,&list) != Success) {
         return 0;
     }
@@ -50,3 +48,18 @@ char *linux_x11::command (Display *disp, Window win) {
 
     return (char*)list;
 }
+
+Window * linux_x11::active (Display *disp, unsigned long *len) {
+    Atom prop = XInternAtom(disp,"_NET_ACTIVE_WINDOW",False), type;
+    int form;
+    unsigned long remain;
+    unsigned char *list;
+
+    if (XGetWindowProperty(disp,XDefaultRootWindow(disp),prop,0,1024,False,XA_WINDOW,
+                &type,&form,len,&remain,&list) != Success) {
+        return 0;
+    }
+
+    return (Window*)list;
+}
+
