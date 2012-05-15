@@ -34,13 +34,21 @@ void WindowTitleReader::getWindowTitle()
 
 #ifdef Q_WS_X11
     linux_x11 l;
-    Display *display = XOpenDisplay (NULL);
-    int screen = DefaultScreen (display);
+    unsigned long len;
+    XKeyEvent esend;
+    Display *disp = XOpenDisplay(NULL);
+    Window *list;
+    char *name;
+    char* command;
 
-//    //XSetErrorHandler(ErrorHandler);
-
-    Window rootWindow = RootWindow (display, screen);
-    l.enumerateWindows(display, rootWindow);
-    XCloseDisplay (display);
+    list = (Window*)l.list(disp,&len);
+    for (int i=0;i<(int)len;i++) {
+        name = l.name(disp,list[i]);
+        command = l.command(disp, list[i]);
+        qDebug() << i << " : " << name << " : " << command;
+        delete name;
+        delete command;
+    }
+    XCloseDisplay (disp);
 #endif
 }

@@ -12,6 +12,9 @@ class linux_x11
 public:
     linux_x11();
     void enumerateWindows(Display *display, Window rootWindow);
+    Window* list(Display *disp, unsigned long *len);
+    char *name (Display *disp, Window win);
+    char *command(Display *disp, Window win);
 };
 
 #endif // LINUX_X11_H
