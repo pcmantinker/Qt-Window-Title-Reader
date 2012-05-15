@@ -2,7 +2,7 @@
 #define WINDOWTITLEREADER_H
 #include <QtCore>
 #ifdef Q_WS_WIN
-#include "qt_windows.h"
+#include "win.h"
 #endif
 
 #ifdef Q_WS_MACX
@@ -22,9 +22,6 @@ public:
     QString qstrMessage;
 
 private:
-#ifdef Q_WS_WIN
-    TCHAR buf[255];
-#endif
     QTimer* timer;
 
 private slots:

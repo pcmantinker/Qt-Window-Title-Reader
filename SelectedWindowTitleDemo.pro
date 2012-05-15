@@ -13,12 +13,14 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     windowtitlereader.cpp \
-    linux_x11.cpp
+    linux_x11.cpp \
+    win.cpp
 
 HEADERS  += mainwindow.h \
     windowtitlereader.h \
     mac.h \
-    linux_x11.h
+    linux_x11.h \
+    win.h
 
 FORMS    += mainwindow.ui
 

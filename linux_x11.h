@@ -15,6 +15,7 @@ public:
     Window* active(Display *disp, unsigned long *len);
     char *name (Display *disp, Window win);
     char *command(Display *disp, Window win);
+    void getWindowTitle();
 };
 
 #endif // LINUX_X11_H

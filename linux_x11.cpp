@@ -63,3 +63,25 @@ Window * linux_x11::active (Display *disp, unsigned long *len) {
     return (Window*)list;
 }
 
+void linux_x11::getWindowTitle()
+{
+    unsigned long len;
+    Display *disp = XOpenDisplay(NULL);
+    Window *list;
+    char *n;
+    char* c;
+
+    list = (Window*)active(disp,&len);
+    for (int i=0;i<(int)len;i++) {
+        n = name(disp,list[i]);
+        c = command(disp, list[i]);
+        qDebug() << i << " : " << n;
+        if(c)
+            qDebug() << "Command : " << c;
+        delete n;
+        delete c;
+    }
+    delete list;
+    XCloseDisplay (disp);
+}
+
