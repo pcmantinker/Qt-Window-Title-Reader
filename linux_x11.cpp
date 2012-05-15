@@ -42,7 +42,6 @@ char *linux_x11::command (Display *disp, Window win) {
     unsigned long remain, len;
     unsigned char *list;
 
-
     if (XGetWindowProperty(disp,win,prop,0,1024,False,XA_STRING,
                 &type,&form,&len,&remain,&list) != Success) {
 
