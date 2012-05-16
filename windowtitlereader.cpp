@@ -31,7 +31,7 @@ void WindowTitleReader::getWindowTitle()
 
 #ifdef Q_WS_X11
     linux_x11 l;
-    l.getWindowTitle();
+    m_activeWindows = l.getActiveWindows();
 #endif
 
     qDebug() << m_activeWindows.count();

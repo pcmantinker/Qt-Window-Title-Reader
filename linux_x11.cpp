@@ -93,8 +93,9 @@ Window * linux_x11::active (Display *disp, unsigned long *len) {
     return (Window*)list;
 }
 
-void linux_x11::getWindowTitle()
+QList<WindowInfo> linux_x11::getActiveWindows()
 {
+    QList<WindowInfo> windowTitles;
     unsigned long len;
     Display *disp = XOpenDisplay(NULL);
     Window *list;
@@ -110,12 +111,13 @@ void linux_x11::getWindowTitle()
         cl = className(disp, list[i]);
         p = pid(disp, list[i]);
         qDebug() << i << " : " << n;
-        if(c)
-            qDebug() << "Command : " << c;
-        if(cl)
-            qDebug() << "Class : " << cl;
-        if(p)
-            qDebug() << "PID : " << *p;
+        QString windowTitle(n);
+        QString processName(c);
+        WindowInfo wi;
+        wi.setWindowTitle(windowTitle);
+        wi.setProcessName(processName);
+        wi.setPID((long)*p);
+        windowTitles.append(wi);
         delete n;
         delete c;
         delete cl;
@@ -123,4 +125,5 @@ void linux_x11::getWindowTitle()
     }
     delete list;
     XCloseDisplay (disp);
+    return windowTitles;
 }
