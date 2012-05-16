@@ -11,12 +11,14 @@ class linux_x11
 {
 public:
     linux_x11();
+    #ifdef Q_WS_X11
     Window* list(Display *disp, unsigned long *len);
     Window* active(Display *disp, unsigned long *len);
     char *name (Display *disp, Window win);
     char *command(Display *disp, Window win);
     char *className(Display *disp, Window win);
     int *pid(Display *disp, Window win);
+#endif
     void getWindowTitle();
 };
 

@@ -11,7 +11,7 @@ Window * linux_x11::list (Display *disp, unsigned long *len) {
     unsigned char *list;
 
     if (XGetWindowProperty(disp,XDefaultRootWindow(disp),prop,0,1024,False,XA_WINDOW,
-                &type,&form,len,&remain,&list) != Success) {
+                           &type,&form,len,&remain,&list) != Success) {
         return 0;
     }
 
@@ -26,7 +26,7 @@ char *linux_x11::name (Display *disp, Window win) {
 
 
     if (XGetWindowProperty(disp,win,prop,0,1024,False,AnyPropertyType,
-                &type,&form,&len,&remain,&list) != Success) {
+                           &type,&form,&len,&remain,&list) != Success) {
 
         return NULL;
     }
@@ -41,7 +41,7 @@ char *linux_x11::command (Display *disp, Window win) {
     unsigned char *list;
 
     if (XGetWindowProperty(disp,win,prop,0,1024,False,AnyPropertyType,
-                &type,&form,&len,&remain,&list) != Success) {
+                           &type,&form,&len,&remain,&list) != Success) {
 
         return NULL;
     }
@@ -56,7 +56,7 @@ char *linux_x11::className(Display *disp, Window win) {
     unsigned char *list;
 
     if (XGetWindowProperty(disp,win,prop,0,1024,False,AnyPropertyType,
-                &type,&form,&len,&remain,&list) != Success) {
+                           &type,&form,&len,&remain,&list) != Success) {
 
         return NULL;
     }
@@ -71,7 +71,7 @@ int* linux_x11::pid(Display *disp, Window win) {
     unsigned char *list;
 
     if (XGetWindowProperty(disp,win,prop,0,1024,False,AnyPropertyType,
-                &type,&form,&len,&remain,&list) != Success) {
+                           &type,&form,&len,&remain,&list) != Success) {
 
         return NULL;
     }
@@ -86,7 +86,7 @@ Window * linux_x11::active (Display *disp, unsigned long *len) {
     unsigned char *list;
 
     if (XGetWindowProperty(disp,XDefaultRootWindow(disp),prop,0,1024,False,XA_WINDOW,
-                &type,&form,len,&remain,&list) != Success) {
+                           &type,&form,len,&remain,&list) != Success) {
         return 0;
     }
 
@@ -124,4 +124,3 @@ void linux_x11::getWindowTitle()
     delete list;
     XCloseDisplay (disp);
 }
-

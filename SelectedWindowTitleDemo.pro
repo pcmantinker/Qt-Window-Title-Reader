@@ -12,21 +12,25 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    windowtitlereader.cpp \
-    linux_x11.cpp \
-    win.cpp
+    windowtitlereader.cpp
+
 
 HEADERS  += mainwindow.h \
-    windowtitlereader.h \
-    mac.h \
-    linux_x11.h \
-    win.h
+    windowtitlereader.h
 
-FORMS    += mainwindow.ui
+macx {
+    OBJECTIVE_SOURCES += mac.mm
+    HEADERS += mac.h
+    LIBS += -framework Cocoa
+}
 
-macx:OBJECTIVE_SOURCES += mac.mm
+unix {
+    HEADERS += linux_x11.h
+    SOURCES += linux_x11.cpp
+    LIBS += -lX11
+}
 
-macx:LIBS += -framework Cocoa
-
-
-unix:LIBS += -lX11
+win32 {
+    SOURCES += win.cpp
+    HEADERS += win.h
+}
