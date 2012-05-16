@@ -26,7 +26,7 @@ macx {
     LIBS += -framework Cocoa
 }
 
-unix {
+unix:!macx {
     HEADERS += linux_x11.h
     SOURCES += linux_x11.cpp
     LIBS += -lX11

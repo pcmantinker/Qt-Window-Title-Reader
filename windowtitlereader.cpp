@@ -26,7 +26,7 @@ void WindowTitleReader::getWindowTitle()
 
 #ifdef Q_WS_MACX
     Mac m;
-    m.getWindowTitle();
+    m_activeWindows = m.getActiveWindows();
 #endif
 
 #ifdef Q_WS_X11

@@ -1,10 +1,11 @@
 #ifndef MAC_H
 #define MAC_H
-#include <QDebug>
+#include <QtCore>
+#include "windowinfo.h"
 
 class Mac {
 public:
-    void getWindowTitle();
+    QList<WindowInfo> getActiveWindows();
 };
 
 #endif // MAC_H
