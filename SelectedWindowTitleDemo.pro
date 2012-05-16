@@ -12,11 +12,13 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    windowtitlereader.cpp
+    windowtitlereader.cpp \
+    windowinfo.cpp
 
 
 HEADERS  += mainwindow.h \
-    windowtitlereader.h
+    windowtitlereader.h \
+    windowinfo.h
 
 macx {
     OBJECTIVE_SOURCES += mac.mm
@@ -33,4 +35,5 @@ unix {
 win32 {
     SOURCES += win.cpp
     HEADERS += win.h
+    LIBS += -lpsapi
 }

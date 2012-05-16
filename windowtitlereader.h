@@ -1,6 +1,7 @@
 #ifndef WINDOWTITLEREADER_H
 #define WINDOWTITLEREADER_H
 #include <QtCore>
+#include "windowinfo.h"
 #ifdef Q_WS_WIN
 #include "win.h"
 #endif
@@ -23,6 +24,9 @@ public:
 
 private:
     QTimer* timer;
+    QList<WindowInfo> m_activeWindows;
+    int* m_pid;
+    QString* m_processName;
 
 private slots:
     void getWindowTitle();

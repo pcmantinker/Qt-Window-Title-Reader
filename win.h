@@ -2,13 +2,16 @@
 #define WIN_H
 #include <QtCore>
 #include "qt_windows.h"
+#include "psapi.h"
+#include "windowinfo.h"
 
-class win
+class win : public QObject
 {
+    Q_OBJECT
+
 public:
     win();
-    void getWindowTitle();
-    QString qstrmessage;
+    QList<WindowInfo> getActiveWindows();
 
 private:
     TCHAR buf[255];

@@ -4,13 +4,46 @@ win::win()
 {
 }
 
-void win::getWindowTitle()
+QList<WindowInfo> win::getActiveWindows()
 {
-    GetWindowText(GetForegroundWindow(), buf, 255);
+    QList<WindowInfo> windowTitles;
+    HWND foregroundWindow = GetForegroundWindow();
+    DWORD* processID = new DWORD;
+    GetWindowText(foregroundWindow, buf, 255);
+    GetWindowThreadProcessId(foregroundWindow, processID);
+    DWORD p = *processID;
+    HANDLE hProcess = OpenProcess(PROCESS_QUERY_INFORMATION |
+                                  PROCESS_VM_READ,
+                                  FALSE, p);
+    TCHAR szProcessName[MAX_PATH];
+
+    if (NULL != hProcess )
+    {
+        HMODULE hMod;
+        DWORD cbNeeded;
+
+        if ( EnumProcessModules( hProcess, &hMod, sizeof(hMod),
+                                 &cbNeeded) )
+        {
+            GetModuleBaseName( hProcess, hMod, szProcessName,
+                               sizeof(szProcessName)/sizeof(TCHAR) );
+        }
+    }
+    CloseHandle(hProcess);
+    long pid = (long)p;
+    QString windowTitle, processName;
 #ifdef UNICODE
-    qstrmessage = QString::fromUtf16((ushort*)buf);
+    windowTitle = QString::fromUtf16((ushort*)buf);
+    processName = QString::fromUtf16((ushort*)szProcessName);
 #else
-    qstrmessage = QString::fromLocal8Bit(buf);
+    windowTitle = QString::fromLocal8Bit(buf);
+    processName = QString::fromLocal8Bit(szProcessName);
 #endif
-    qDebug() << qstrmessage;
+
+    WindowInfo wi;
+    wi.setPID(pid);
+    wi.setWindowTitle(windowTitle);
+    wi.setProcessName(processName);
+    windowTitles.append(wi);
+    return windowTitles;
 }

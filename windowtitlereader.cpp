@@ -13,13 +13,15 @@ WindowTitleReader::WindowTitleReader()
 WindowTitleReader::~WindowTitleReader()
 {
     delete timer;
+    delete m_pid;
+    delete m_processName;
 }
 void WindowTitleReader::getWindowTitle()
 {
     qDebug() << "WindowTitleReader::getWindowTitle()";
 #ifdef Q_WS_WIN
     win w;
-    w.getWindowTitle();
+    m_activeWindows = w.getActiveWindows();
 #endif
 
 #ifdef Q_WS_MACX
@@ -31,4 +33,8 @@ void WindowTitleReader::getWindowTitle()
     linux_x11 l;
     l.getWindowTitle();
 #endif
+
+    qDebug() << m_activeWindows.count();
+    for(int i = 0; i < m_activeWindows.count(); i++)
+        qDebug() << "PID: " << m_activeWindows[i].getPID() << " Process Name: " << m_activeWindows[i].getProcessName() << " Window Title: " << m_activeWindows[i].getWindowTitle();
 }
