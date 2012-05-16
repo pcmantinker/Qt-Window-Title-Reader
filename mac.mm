@@ -15,7 +15,6 @@ QList<WindowInfo> Mac::getActiveWindows()
     NSString *pname = (NSString *)processName;
 
     // loop through all application windows
-    int i = 0;
     CFArrayRef windowList = CGWindowListCopyWindowInfo(kCGWindowListOptionOnScreenOnly | kCGWindowListExcludeDesktopElements, kCGNullWindowID);
     for (NSMutableDictionary* entry in (NSArray*)windowList)
     {
@@ -50,7 +49,6 @@ QList<WindowInfo> Mac::getActiveWindows()
                 wi.setPID(pid);
                 windowTitles.append(wi);
             }
-            i++;
         }
     }
     CFRelease(windowList);
