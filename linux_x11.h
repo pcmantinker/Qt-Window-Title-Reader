@@ -1,3 +1,7 @@
+/*
+  Linux/X11 specific code for obtaining information about the frontmost window
+*/
+
 #ifndef LINUX_X11_H
 #define LINUX_X11_H
 
@@ -12,15 +16,13 @@ class linux_x11
 {
 public:
     linux_x11();
-    Window* list(Display *disp, unsigned long *len);
+    QList<WindowInfo> getActiveWindows();
+
+private:
     Window* active(Display *disp, unsigned long *len);
     char *name (Display *disp, Window win);
-    char *command(Display *disp, Window win);
-    char *className(Display *disp, Window win);
     int *pid(Display *disp, Window win);
     QString processName(long pid);
-
-    QList<WindowInfo> getActiveWindows();
 };
 
 #endif // LINUX_X11_H

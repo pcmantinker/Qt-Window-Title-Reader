@@ -1,3 +1,7 @@
+/*
+  Windows API specific code for obtaining information about the frontmost window
+*/
+
 #ifndef WIN_H
 #define WIN_H
 #include <QtCore>

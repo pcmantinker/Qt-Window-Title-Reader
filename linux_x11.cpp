@@ -1,3 +1,7 @@
+/*
+  Linux/X11 specific code for obtaining information about the frontmost window
+*/
+
 #include "linux_x11.h"
 #include <sstream>
 #include <stdlib.h>
@@ -7,95 +11,54 @@ linux_x11::linux_x11()
 {
 }
 
-Window * linux_x11::list (Display *disp, unsigned long *len) {
-    Atom prop = XInternAtom(disp,"_NET_CLIENT_LIST",False), type;
-    int form;
-    unsigned long remain;
-    unsigned char *list;
-
-    if (XGetWindowProperty(disp,XDefaultRootWindow(disp),prop,0,1024,False,XA_WINDOW,
-                           &type,&form,len,&remain,&list) != Success) {
-        return 0;
-    }
-
-    return (Window*)list;
-}
-
+/**
+  * Returns the window name for a specific window on a display
+***/
 char *linux_x11::name (Display *disp, Window win) {
     Atom prop = XInternAtom(disp,"WM_NAME",False), type;
     int form;
     unsigned long remain, len;
     unsigned char *list;
 
-
-    if (XGetWindowProperty(disp,win,prop,0,1024,False,AnyPropertyType,
-                           &type,&form,&len,&remain,&list) != Success) {
-
+    if (XGetWindowProperty(disp,win,prop,0,1024,False,AnyPropertyType, &type,&form,&len,&remain,&list) != Success)
         return NULL;
-    }
 
     return (char*)list;
 }
 
-char *linux_x11::command (Display *disp, Window win) {
-    Atom prop = XInternAtom(disp,"WM_COMMAND",False), type;
-    int form;
-    unsigned long remain, len;
-    unsigned char *list;
-
-    if (XGetWindowProperty(disp,win,prop,0,1024,False,AnyPropertyType,
-                           &type,&form,&len,&remain,&list) != Success) {
-
-        return NULL;
-    }
-
-    return (char*)list;
-}
-
-char *linux_x11::className(Display *disp, Window win) {
-    Atom prop = XInternAtom(disp,"WM_CLASS",False), type;
-    int form;
-    unsigned long remain, len;
-    unsigned char *list;
-
-    if (XGetWindowProperty(disp,win,prop,0,1024,False,AnyPropertyType,
-                           &type,&form,&len,&remain,&list) != Success) {
-
-        return NULL;
-    }
-
-    return (char*)list;
-}
-
+/**
+  * Returns the pid for a specific window on a display
+***/
 int* linux_x11::pid(Display *disp, Window win) {
     Atom prop = XInternAtom(disp,"_NET_WM_PID",False), type;
     int form;
     unsigned long remain, len;
     unsigned char *list;
 
-    if (XGetWindowProperty(disp,win,prop,0,1024,False,AnyPropertyType,
-                           &type,&form,&len,&remain,&list) != Success) {
-
+    if (XGetWindowProperty(disp,win,prop,0,1024,False,AnyPropertyType, &type,&form,&len,&remain,&list) != Success)
         return NULL;
-    }
 
     return (int*)list;
 }
 
+/**
+  * Returns the active window on a specific display
+***/
 Window * linux_x11::active (Display *disp, unsigned long *len) {
     Atom prop = XInternAtom(disp,"_NET_ACTIVE_WINDOW",False), type;
     int form;
     unsigned long remain;
     unsigned char *list;
 
-    if (XGetWindowProperty(disp,XDefaultRootWindow(disp),prop,0,1024,False,XA_WINDOW,
-                           &type,&form,len,&remain,&list) != Success) {
-        return 0;
-    }
+    if (XGetWindowProperty(disp,XDefaultRootWindow(disp),prop,0,1024,False,XA_WINDOW, &type,&form,len,&remain,&list) != Success)
+        return NULL;
 
     return (Window*)list;
 }
 
+/**
+  * Returns process name from pid (processes output from /proc/<pid>/status)
+***/
 QString linux_x11::processName(long pid)
 {
     // construct command string
@@ -119,8 +82,6 @@ QList<WindowInfo> linux_x11::getActiveWindows()
     Display *disp = XOpenDisplay(NULL);
     Window *list;
     char *n;
-    char* c;
-    char* cl;
     int* p;
 
     list = (Window*)active(disp,&len);
@@ -128,8 +89,6 @@ QList<WindowInfo> linux_x11::getActiveWindows()
     {
         for (int i=0;i<(int)len;i++) {
             n = name(disp,list[i]);
-            c = command(disp, list[i]);
-            cl = className(disp, list[i]);
             p = pid(disp, list[i]);
             long p_id = 0;
             QString pName;
@@ -137,7 +96,7 @@ QList<WindowInfo> linux_x11::getActiveWindows()
 
             if(p!=NULL)
             {
-                p_id = *p;
+                p_id = *p; // dereference pointer for obtaining pid
                 pName = processName(p_id);
             }
 
@@ -150,8 +109,6 @@ QList<WindowInfo> linux_x11::getActiveWindows()
             wi.setPID(p_id);
             windowTitles.append(wi);
             delete n;
-            delete c;
-            delete cl;
             delete p;
         }
     }

@@ -1,5 +1,14 @@
+/*
+  Mac/Cocoa specific code for obtaining information about the frontmost window
+*/
+
 #include "mac.h"
 #include "Cocoa/Cocoa.h"
+
+Mac::Mac()
+{
+
+}
 
 QList<WindowInfo> Mac::getActiveWindows()
 {
