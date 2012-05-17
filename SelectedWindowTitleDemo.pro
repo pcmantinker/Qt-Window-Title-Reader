@@ -6,7 +6,7 @@
 
 QT       += core gui
 
-TARGET = SelectedWindowTitleDemo
+TARGET = WindowInfo
 TEMPLATE = app
 
 

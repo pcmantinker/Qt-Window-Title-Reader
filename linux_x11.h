@@ -18,6 +18,7 @@ public:
     char *command(Display *disp, Window win);
     char *className(Display *disp, Window win);
     int *pid(Display *disp, Window win);
+    QString processName(long pid);
 
     QList<WindowInfo> getActiveWindows();
 };

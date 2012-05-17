@@ -33,8 +33,6 @@ void WindowTitleReader::getWindowTitle()
     linux_x11 l;
     m_activeWindows = l.getActiveWindows();
 #endif
-
-    qDebug() << m_activeWindows.count();
     for(int i = 0; i < m_activeWindows.count(); i++)
         qDebug() << "PID: " << m_activeWindows[i].getPID() << " Process Name: " << m_activeWindows[i].getProcessName() << " Window Title: " << m_activeWindows[i].getWindowTitle();
 }
