@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QWidget>
+#include <QtWidgets>
 #include "windowtitlereader.h"
 
 class MainWindow : public QWidget

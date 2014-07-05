@@ -19,17 +19,17 @@ WindowTitleReader::~WindowTitleReader()
 void WindowTitleReader::getWindowTitle()
 {
     qDebug() << "WindowTitleReader::getWindowTitle()";
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN32
     win w;
     m_activeWindows = w.getActiveWindows();
 #endif
 
-#ifdef Q_WS_MACX
+#ifdef Q_OS_DARWIN
     Mac m;
     m_activeWindows = m.getActiveWindows();
 #endif
 
-#ifdef Q_WS_X11
+#ifdef Q_OS_LINUX
     linux_x11 l;
     m_activeWindows = l.getActiveWindows();
 #endif

@@ -2,15 +2,15 @@
 #define WINDOWTITLEREADER_H
 #include <QtCore>
 #include "windowinfo.h"
-#ifdef Q_WS_WIN
+#ifdef Q_OS_WIN32
 #include "win.h"
 #endif
 
-#ifdef Q_WS_MACX
+#ifdef Q_OS_DARWIN
 #include "mac.h"
 #endif
 
-#ifdef Q_WS_X11
+#ifdef Q_OS_LINUX
 #include "linux_x11.h"
 #endif
 
